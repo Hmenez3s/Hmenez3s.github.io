@@ -28,7 +28,7 @@ Personal Info
 	•	Location: Vila Velha, Espírito Santo, Brazil
 	•	Age: 23 (born 2001)
 	•	LinkedIn: linkedin.com/in/joão-henrique-menezes-boia
-	•	GitHub: github.com/JoaoHenriqueRX7
+	•	GitHub: github.com/Hmenez3s
 	•	Email: joaohenrique@jhbdev.com.br
 	•	Resume:
 		•	View/Share Link: https://drive.google.com/file/d/1ldkyVVZuhhpBKVHkqstrtl5AdBOjLb2M/view?usp=share_link
@@ -115,7 +115,7 @@ Oráculo (Aya)
 	•	Architected, led and developed a scalable multi-agent LLM platform
 	•	Stack: Python, FastAPI, RAG (vector DB), Supabase, PostgreSQL, Docker, AWS
 	•	Features: Multi-tenant chat, admin interface, streaming responses, integration with OpenAI/Anthropic LLMs, knowledge ingestion from PDF, DOCX, images (custom pipelines), agent configuration per tenant, custom system and RAG prompts, full admin/user RBAC and audit trails.
-	•	Showcase Repo: https://github.com/JoaoHenriqueRX7/oraculo-Showcase
+	•	Showcase Repo: https://github.com/Hmenez3s/oraculo-Showcase
 
 Chat ESX 2024 (Aya/Sebrae)
 	•	Led delivery of the official chatbot for ESX 2024 (Espírito Santo Innovation Experience)
@@ -133,13 +133,13 @@ Celesta Royalties Visualization + AI Insights (Whoopee)
 	•	Dashboard + backend for mining royalties (Celesta Mining, Pará)
 	•	Real-time financial metrics, AI-powered insights, operational dashboards, voice and text Q&A
 	•	Stack: React, Vite, Tailwind, FastAPI, PostgreSQL, SQLAlchemy, RAG, Docker, AWS, JWT
-	•	Showcase Repo: https://github.com/JoaoHenriqueRX7/RoyaltiesVisualization-Showcase
+	•	Showcase Repo: https://github.com/Hmenez3s/RoyaltiesVisualization-Showcase
 
 Stone-AI for Amagran (Whoopee)
 	•	Conversational AI backend for a granite company
 	•	Each stone “persona” gets its own voice using ElevenLabs + LLMs
 	•	Stack: Python (FastAPI), JWT auth, persona config, low-latency API, future extensibility for vision/image overlay
-	•	Showcase Repo: https://github.com/JoaoHenriqueRX7/stone-ai-Showcase
+	•	Showcase Repo: https://github.com/Hmenez3s/stone-ai-Showcase
 
 ETL & Data Engineering
 	•	ETL pipelines for data extraction (Python, BeautifulSoup, requests), transformation (pandas, numpy), and loading to relational DBs (MySQL, PostgreSQL)
@@ -187,7 +187,7 @@ Languages
 Links & Contact
 	•	Email: joaohenrique@jhbdev.com.br
 	•	LinkedIn: linkedin.com/in/joão-henrique-menezes-boia
-	•	GitHub: github.com/JoaoHenriqueRX7
+	•	GitHub: github.com/Hmenez3s
 
 Project Showcases:
 	•	Oráculo
