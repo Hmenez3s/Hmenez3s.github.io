@@ -327,8 +327,8 @@ async function sendMessageToGemini(message) {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${API_KEY}`,
-        // 'HTTP-Referer': 'https://hmenez3s.github.io', // Optional: for OpenRouter rankings
-        // 'X-Title': 'J.Henrique Portfolio', // Optional: for OpenRouter rankings
+        'HTTP-Referer': 'https://hmenez3s.github.io/', // Required for OpenRouter to allow browser requests
+        'X-Title': 'J.Henrique Portfolio', // Optional but recommended
       },
       body: JSON.stringify({
         model: "google/gemini-3-flash-preview",
