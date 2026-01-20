@@ -1,4 +1,4 @@
-const API_KEY = 'AIzaSyD_fLDMQObEc9L2_W04fBweOl31Uxvx3M4';
+const API_KEY = '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';
 
 const sendBtn = document.getElementById('sendBtn');
 const userInput = document.getElementById('userInput');
@@ -303,19 +303,12 @@ End of System Prompt`;
 
 async function sendMessageToGemini(message) {
   // If conversation history is empty, add the system prompt as the first message
-  if (conversationHistory.length === 0) {
-    // The role for the system prompt might vary depending on the exact API interpretation.
-    // Using 'user' followed by 'model' with an empty response is a common pattern
-    // to prime the model, or sometimes a dedicated 'system' role is supported.
-    // For this example, we'll add it as an initial 'user' message to guide the model.
-    // A more robust implementation might use the 'system_instruction' parameter if available in the API.
-    conversationHistory.push({ role: "user", parts: [{ text: systemPrompt }] });
-    // Add an empty model response to balance the turn if needed by the API
-    // conversationHistory.push({ role: "model", parts: [{ text: "Okay, I understand." }] }); // Optional: uncomment if needed
-  }
+  // For OpenRouter/OpenAI format, the system prompt is usually the first message with role 'system'
+  // or 'user' if the model behaves better that way. We'll use 'system' for best practice.
+  conversationHistory.push({ role: "system", content: systemPrompt });
 
 
-  conversationHistory.push({ role: "user", parts: [{ text: message }] });
+  conversationHistory.push({ role: "user", content: message });
 
   // Display a loading indicator or similar while waiting for response
   const loadingMsg = document.createElement('div');
@@ -329,57 +322,39 @@ async function sendMessageToGemini(message) {
     // --- Placeholder for direct API call (NOT SECURE) ---
     // This part is illustrative and assumes a browser-compatible way to use the API key directly.
     // A real implementation would use a backend/serverless function.
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`, { // Use generateContent for non-streaming
+    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${API_KEY}`,
+        // 'HTTP-Referer': 'https://hmenez3s.github.io', // Optional: for OpenRouter rankings
+        // 'X-Title': 'J.Henrique Portfolio', // Optional: for OpenRouter rankings
       },
       body: JSON.stringify({
-        contents: conversationHistory, // Send the whole history including the system prompt
-        generationConfig: {
-           "temperature": 0.9,
-           "topK": 1,
-           "topP": 1,
-           "maxOutputTokens": 2048,
-           "stopSequences": []
-        },
-        safetySettings: [
-           {
-               "category": "HARM_CATEGORY_HARASSMENT",
-               "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-           },
-           {
-               "category": "HARM_CATEGORY_HATE_SPEECH",
-               "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-           },
-           {
-               "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
-               "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-           },
-           {
-               "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
-               "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-           }
-        ]
+        model: "google/gemini-3-flash-preview",
+        messages: conversationHistory,
+        reasoning: {
+          enabled: true
+        }
       }),
     });
 
     if (!response.ok) {
-       const errorData = await response.json();
-       console.error('API Error:', errorData);
-       throw new Error(`API error! status: ${response.status}`);
+      const errorData = await response.json();
+      console.error('API Error:', errorData);
+      throw new Error(`API error! status: ${response.status}`);
     }
 
     const data = await response.json();
-    // Assuming the response structure has text in candidates[0].content.parts[0].text
-    const botResponseText = data.candidates[0].content.parts[0].text;
+    // OpenRouter/OpenAI format: choices[0].message.content
+    const botResponseText = data.choices[0].message.content;
 
     // --- End Placeholder ---
 
 
     chatWindow.removeChild(loadingMsg);
 
-    conversationHistory.push({ role: "model", parts: [{ text: botResponseText }] });
+    conversationHistory.push({ role: "assistant", content: botResponseText });
 
     // Display bot message with Markdown rendering
     const botMsg = document.createElement('div');
@@ -400,7 +375,7 @@ async function sendMessageToGemini(message) {
     // Remove loading indicator if it's still there
     const currentLoadingMsg = chatWindow.querySelector('.message.bot.loading');
     if (currentLoadingMsg) {
-        chatWindow.removeChild(currentLoadingMsg);
+      chatWindow.removeChild(currentLoadingMsg);
     }
     // Display an error message
     const errorMsg = document.createElement('div');
